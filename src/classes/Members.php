@@ -30,7 +30,10 @@ require_once '../../config/connect.php';
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
-        
+        public function destroymem($member_id){
+            $query = "DELETE FROM members WHERE member_id = $member_id";
+            $stmt = $this->connect()->query($query);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
     } 
-    
 ?>
