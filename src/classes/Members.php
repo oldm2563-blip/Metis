@@ -11,7 +11,7 @@ require_once '../../config/connect.php';
            $this->member_email = $member_email;
            $this->phone_num = $phone_num;
          }
-         
+
         public function addmember(){
           $query = "INSERT INTO members (full_name, email, phone) VALUES (?, ?, ?)";
           $stmt = $this->connect()->prepare($query);
@@ -19,11 +19,18 @@ require_once '../../config/connect.php';
         }
 
         public function allmembers(){
-            $allmem = [];
           $query = "SELECT * FROM members";
           $stmt = $this->connect()->query($query);
           return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+
+        public function memberinf($member_id){
+            $query = "SELECT * FROM members WHERE member_id = $member_id";
+            $stmt = $this->connect()->query($query);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
+        
     } 
     
 ?>
