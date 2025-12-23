@@ -6,7 +6,7 @@
     private $db_name = "Metis"; 
     private $port = 3307;
 
-    public function connect(){
+    protected function connect(){
         try{
              $connect = new PDO("mysql:host=" . $this->server . ";port=" . $this->port . ";dbname=" . $this->db_name, $this->user, $this->pass);
             $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -17,6 +17,4 @@
     }
 
     }
-    $connect1 = new db();
-    $connect1->connect();
 ?>
