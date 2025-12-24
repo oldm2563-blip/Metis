@@ -1,5 +1,5 @@
 <?php
-require_once '../../config/connect.php';
+require_once '../../config/Db.php';
     class Member extends Db {
         private $member_id;
         private $member_name;
@@ -44,5 +44,6 @@ require_once '../../config/connect.php';
           $stmt->execute([$member_name, $member_email, $phone_num, $member_id]);
           return "editting was a success";
         }
-    } 
+    }
+
 ?>
