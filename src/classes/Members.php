@@ -25,15 +25,24 @@ require_once '../../config/connect.php';
         }
 
         public function memberinf($member_id){
-            $query = "SELECT * FROM members WHERE member_id = $member_id";
-            $stmt = $this->connect()->query($query);
+            $query = "SELECT * FROM members WHERE member_id = ?";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute([$member_id]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
         public function destroymem($member_id){
-            $query = "DELETE FROM members WHERE member_id = $member_id";
-            $stmt = $this->connect()->query($query);
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            $query = "DELETE FROM members WHERE member_id = ?";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute([$member_id]);
+            return "deleting was a success";
+        }
+
+        public function editmember($member_id, $member_name, $member_email, $phone_num){
+          $query = "UPDATE members SET full_name = ?, email = ?, phone = ? WHERE member_id = ?";
+          $stmt = $this->connect()->prepare($query);
+          $stmt->execute([$member_name, $member_email, $phone_num, $member_id]);
+          return "editting was a success";
         }
     } 
 ?>
