@@ -16,8 +16,25 @@
             $stmt = $this->connect()->query($query);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
-        
+
+        public function deleteproject($project_id){
+            $query = "DELETE FROM projects WHERE project_id = ?";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute([$project_id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
+        public function showpr($member_id){
+            $query = "SELECT * FROM projects WHERE member_id = ?";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute($member_id);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
+
         abstract function addproject();
-        abstract function show();
+        abstract function showAll();
+        abstract function deletepr($project_id);
+        abstract function showone($member_id);
     }
 ?>
