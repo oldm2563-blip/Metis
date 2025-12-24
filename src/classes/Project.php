@@ -1,5 +1,5 @@
 <?php
-    require_once '../../config/connect.php';
+    require_once '../../config/Db.php';
      abstract class Project extends Db{
         protected $project_id;
         protected $project_name;
@@ -11,5 +11,6 @@
             $this->member_id = $member_id;
         }   
         
+        abstract function addproject();
     }
 ?>
