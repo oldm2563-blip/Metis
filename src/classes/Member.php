@@ -1,6 +1,6 @@
 <?php
 require_once '../../config/connect.php';
-    class member extends db{
+    class Member extends Db {
         private $member_id;
         private $member_name;
         private $member_email;

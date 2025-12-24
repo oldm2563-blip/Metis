@@ -1,5 +1,5 @@
 <?php 
-    class db{
+    class Db{
     private $server = "localhost";
     private $user = "root";
     private $pass = "";
