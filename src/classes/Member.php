@@ -13,9 +13,20 @@ require_once '../../config/Db.php';
          }
 
         public function addmember(){
-          $query = "INSERT INTO members (full_name, email, phone) VALUES (?, ?, ?)";
-          $stmt = $this->connect()->prepare($query);
-          return $stmt->execute([$this->member_name, $this->member_email, $this->phone_num]);
+          $amail = "SELECT COUNT(*) AS found FROM members WHERE email = ? ";
+          $sstm = $this->connect()->prepare($amail);
+          $sstm->execute([$this->member_email]);
+          $check = $sstm->fetch(PDO::FETCH_ASSOC);
+          
+          if($check['found'] > 0){
+            echo "Email Already Existes";
+          }
+          else{
+            $query = "INSERT INTO members (full_name, email, phone) VALUES (?, ?, ?)";
+            $stmt = $this->connect()->prepare($query);
+            return $stmt->execute([$this->member_name, $this->member_email, $this->phone_num]);
+          }
+          
         }
 
         public function allmembers(){
@@ -45,5 +56,8 @@ require_once '../../config/Db.php';
           return "editting was a success";
         }
     }
+    
 
+    $me = new Member("Shahd", "Shahd2563@gmail.com","0836281");
+    $me->addmember();
 ?>
