@@ -43,10 +43,19 @@ require_once '../../config/Db.php';
         }
 
         public function destroymem($member_id){
-            $query = "DELETE FROM members WHERE member_id = ?";
-            $stmt = $this->connect()->prepare($query);
-            $stmt->execute([$member_id]);
-            return "deleting was a success";
+          $mem = "SELECT COUNT(*) AS found FROM projects WHERE member_id = ?";
+          $sstm = $this->connect()->prepare($mem);
+          $sstm->execute([$member_id]);
+          $m = $sstm->fetch(PDO::FETCH_ASSOC);
+          if($m["found"] > 0){
+            echo "can't delete member";
+          }
+          else{
+          $query = "DELETE FROM members WHERE member_id = ?";
+          $stmt = $this->connect()->prepare($query);
+          $stmt->execute([$member_id]);
+          return "deleting was a success";
+          }
         }
 
         public function editmember($member_id, $member_name, $member_email, $phone_num){
@@ -57,7 +66,4 @@ require_once '../../config/Db.php';
         }
     }
     
-
-    $me = new Member("Shahd", "Shahd2563@gmail.com","0836281");
-    $me->addmember();
 ?>
