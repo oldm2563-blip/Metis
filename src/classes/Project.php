@@ -18,9 +18,18 @@
         }
 
         public function deleteproject($project_id){
+          $mem = "SELECT COUNT(*) AS found FROM activities WHERE project_id = ?";
+          $sstm = $this->connect()->prepare($mem);
+          $sstm->execute([$project_id]);
+          $m = $sstm->fetch(PDO::FETCH_ASSOC);
+          if($m["found"] > 0){
+            echo "can't delete member";
+          }
+          else{
             $query = "DELETE FROM projects WHERE project_id = ?";
             $stmt = $this->connect()->prepare($query);
             $stmt->execute([$project_id]);
+          }
         }
 
         public function showpr($member_id){
